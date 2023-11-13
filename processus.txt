@@ -1,0 +1,42 @@
+Exercice 1: Liste des processus
+
+1. Pour lister tous les processus appartenant à un utilisateur, on peut utiliser la commande `ps` avec l'option `-u` suivie du nom d'utilisateur. Par exemple, `ps -u nadirkarem` dans mon cas.
+
+2. Pour afficher tous les processus de tous les utilisateurs, on utilise `ps aux`.
+
+3. Pour trier les processus en fonction de la mémoire qu'ils consomment, j'utilise la commande `ps aux -o rss,vsz,comm | sort -k1,1rn`. D'autres commandes peuvent être utilisées dans le même but mais pour mon mac, cette commande est nécessaire pour le tri. Cela triera les processus en ordre décroissant de consommation mémoire. On peut alors identifier le processus avec la plus grande valeur dans la colonne RSS (Resident Set Size), en affichant aussi les colonnes VSZ (Virtual Memory Size) et le nom de la commande (avec le comm).
+
+4. Pour déterminer si Safari est lancé (mon ordinateur n'a pas firefox installé), j'utilise `pgrep -i safari`. Cela m'affiche le PID des processus liés à Safari s'ils sont en cours d'exécution.
+pgrep est la commande recherchant les PID (identifiant de processus).
+-i permet de rendre la recherche insensible à la casse de façon à ce que "SAFARI", "safari", "Safari", soient tous considérés comme des correspondances au motif de recherche "safari".
+
+
+Exercice 2 : Top
+
+1. La commande "top -s 1" lance la commande top en mode interractif avec un intervalle de rafraichissement d'une seconde.
+2.
+
+Exercice 3 : Job Control
+
+On remarque que si emacs est lancé en avant plan, essayer d'autres commandes sur le même terminal est inutile étant donné que le shell est bloqué jusqu'à ce que l'on quitte emacs.
+En revanche si emacs &, permettant de le lancer en arrière plan, est utilisé, on peut toujours saisir de nouvelles commandes dans le même terminal dans attendre la fin de l'éxecution de emacs.
+
+Une fois les commandes faites et "jobs" entré, j'obtiens :
+[1]   Arrêté                man gcc
+[2]-  Arrêté                info gcc
+[3]+  Arrêté                emacs
+
+J'utilise "jobs -l" puis je kill avec les id.
+
+
+Exercice 4 :
+
+1. "pgrep emacs" et "kill -s TSTP 23860" pour tuer emacs.
+C-z suspens le processus
+
+Le programme ddd n'est pas sur l'ordinateur et n'a pas pu etre installé.
+
+La commande kill -9 suivi du numéro de processus, on envoie au processus le signal SIGKILL. 
+Ce signal est très fort et ne peut pas être ignoré par le processus. 
+
+2. C-c envoie un signal SIGINT au processus. Contrairement à SIGKILL, le signal SIGINT peut être intercepté et traité par le processus.
